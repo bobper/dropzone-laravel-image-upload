@@ -14,11 +14,14 @@ Dropzone.options.realDropzone = {
     init:function() {
 
         this.on("removedfile", function(file) {
+            var data=file.xhr.responseText;
+            var jsonResponse = JSON.parse(data);
+            var serverFileName = jsonResponse["filename"];
 
             $.ajax({
                 type: 'POST',
                 url: 'upload/delete',
-                data: {id: file.name, _token: $('#csrf-token').val()},
+                data: {id: serverFileName , _token: $('#csrf-token').val()},
                 dataType: 'html',
                 success: function(data){
                     var rep = JSON.parse(data);
