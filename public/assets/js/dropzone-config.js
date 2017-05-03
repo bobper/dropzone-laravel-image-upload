@@ -14,9 +14,19 @@ Dropzone.options.realDropzone = {
     init:function() {
 
         this.on("removedfile", function(file) {
-            var data=file.xhr.responseText;
-            var jsonResponse = JSON.parse(data);
-            var serverFileName = jsonResponse["filename"];
+            if(!file.xhr){
+                var data=file.xhr.responseText;
+                var jsonResponse = JSON.parse(data);
+                var serverFileName = jsonResponse["filename"];
+                //TODO use this.responseText is more cleaner
+             }
+            else{
+               //TODO  
+               //Edit Phase  :  for Edit form that contains dropzone files
+                
+            
+            }
+            
 
             $.ajax({
                 type: 'POST',
